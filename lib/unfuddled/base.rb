@@ -13,27 +13,26 @@ module Unfuddled
     alias_method :to_hash , :attrs
     alias_method :to_hsh , :attrs
 
+
+    # Constructor
+    #
+    # @param attrs [Hash]
+    # @return [Unfuddled::Base]
+    def initialize(attrs = {})
+      @attrs = attrs || {}
+    end
+
+    # Fetches and attribute of an object using hash notation
+    #
+    # @param method [String, Symbol] Message to send the object
+    def [](method)
+      send(method.to_sym)
+    rescue NoMethodError
+      nil
+    end
+
     class << self
 
-      #
-      # Constructor
-      # @param attrs [Hash]
-      # @return [Unfuddled::Base]
-      def initialize(attrs = {})
-        @attrs = attrs || {}
-      end
-      
-      #
-      # Fetches and attribute of an object using hash notation
-      #
-      # @param method [String, Symbol] Message to send the object
-      def [](method)
-        send(method.to_sym)
-      rescue NoMethodError
-        nil
-      end
-
-      #
       # Construct object from Response
       #
       # @param response [Hash]
@@ -73,8 +72,34 @@ module Unfuddled
           Addressable::URI.parse(@attrs[key_two]) unless @attrs[key_two].nil?
         end
 
-        memorize key_one
+        memoize key_one
       end
+
+      private
+      
+      # Dynamically define a method for an attribute
+      #
+      # @param key_one [Symbol]
+      # @param klass   [Symbol]
+      # @param key_two [Symbol]
+      def define_attribute_method(key_one , klass = nil , key_two = nil)
+        define_method(key_one) do ||
+            if klass.nil?
+              @attrs[key_one]
+            else
+              if @attrs[key_0one].nil?
+                NullObject.new
+              else
+                attrs = attrs_for_object(key_one, key_two)
+                Unfuddled.const_get(klass).new(attrs)
+              end
+            end
+        end
+        
+        memoize key_one 
+      end
+      
+      
             
     end
   end

@@ -1,8 +1,9 @@
 require 'helper'
 
 describe Unfuddled::Base do
+
   before do
-    @base = Unfuddled::Base.new( :id => 1 )
+    @base = Unfuddled::Base.new(:id => 1)
   end
 
   describe '#[]' do
