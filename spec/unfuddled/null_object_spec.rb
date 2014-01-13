@@ -16,6 +16,25 @@ describe Unfuddled::NullObject do
     end
   end
 
+  if RUBY_VERSION < '1.9'
+    describe '#respond_to?' do
+      it 'should always return true' do
+        expect(subject.respond_to? :foo).to be_true
+        expect(subject.respond_to? :to_a).to be_true
+        expect(subject.respond_to? :to_s).to be_true
+      end
+    end
+  else
+    describe '#respond_to_missing?' do
+      it 'should always return true' do
+        expect(subject.respond_to? :foo).to be_true
+        expect(subject.respond_to? :to_a).to be_true
+        expect(subject.respond_to? :to_s).to be_true
+      end
+    end
+  end
+
+
   if RUBY_VERSION >= '1.9'
     describe '#to_c' do
       it 'returns a complex number of value zero' do
