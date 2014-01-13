@@ -8,6 +8,17 @@ Gem::Specification.new do |s|
   s.summary = 'Unfuddle API Client Library'
   s.authors = ['Leo Adamek']
   s.email   = 'leo.adamek@mrzen.com'
-  s.files   = ["lib/unfuddled.rb"]
+
+  s.files   = %w(README.md unfuddled.gemspec)
+  s.files  += Dir.glob('spec/**/*')
+  s.files  += Dir.glob('lib/**/*.rb')
+
   s.license = 'MIT'
+
+  s.add_dependency 'addressable'
+  s.add_dependency 'memoizable'
+  
+  s.add_development_dependency 'bundler'
+
+  s.require_paths = %w[lib]
 end

@@ -11,7 +11,7 @@ group :development do
   gem 'pry'
   gem 'pry-rescue'
 
-  platforms :ruby_19, :ruby_20, :ruby_21 do
+  platforms :ruby_19, :ruby_20 do
     gem 'pry-stack_explorer'
     gem 'redcarpet'
   end
