@@ -1,12 +1,6 @@
 require 'helper'
 
 describe Unfuddled::NullObject do
-  
-  describe '#nil?' do
-    it 'returns true' do
-      expect(subject.nil?).to be true
-    end
-  end
 
   describe '#to_a' do
     it 'returns an empty Array' do
@@ -65,7 +59,6 @@ describe Unfuddled::NullObject do
           expect(subject.to_s).to be_empty
         end
       end
-
     end
   end
 end
