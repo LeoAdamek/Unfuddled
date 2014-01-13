@@ -24,6 +24,17 @@ module Unfuddled
       @user_agent ||= "Unfuddled Ruby Gem Client"
     end
 
+    # Get Credentials
+    #
+    # @return [Hash]
+    def credentials
+      {
+        :account => account,
+        :username => username,
+        :password => password
+      }
+    end
+
     # Check the Credentials
     #
     # @return [Boolean]
