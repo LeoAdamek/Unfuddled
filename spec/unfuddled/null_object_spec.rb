@@ -16,6 +16,12 @@ describe Unfuddled::NullObject do
     end
   end
 
+  describe '#method_missing' do
+    it 'returns itself' do
+      expect(subject.method_missng).to be_an Unfuddled::NullObject
+    end
+  end
+
   if RUBY_VERSION < '1.9'
     describe '#respond_to?' do
       it 'should always return true' do
