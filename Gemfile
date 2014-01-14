@@ -7,6 +7,10 @@ gem 'jruby-openssl', :platforms => :jruby
 gem 'rake'
 gem 'yard'
 
+platforms :rbx , :ruby_18 do
+  gem 'json'
+end
+
 group :development do
   gem 'pry'
   gem 'pry-rescue'
