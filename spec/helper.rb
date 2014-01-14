@@ -19,7 +19,6 @@ end
 #
 require 'unfuddled'
 require 'rspec'
-require 'stringio'
 require 'webmock/rspec'
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
@@ -30,6 +29,11 @@ RSpec.configure do |config|
   end
 end
 
+def stub_path(client , path)
+  c = client.credentials
+  "https://#{c[:username]}:#{c[:password]}@#{c[:account]}.unfuddle.com/api/v1" + path
+end
+  
 
 # Fixtures configuration
 def fixture_path

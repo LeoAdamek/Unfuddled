@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'addressable'
   s.add_dependency 'memoizable'
+  s.add_dependency 'faraday'
+  s.add_dependency 'faraday_middleware'
   
   s.add_development_dependency 'bundler'
 

@@ -7,7 +7,7 @@ module Unfuddled
       # @param response[Hash]
       # @return [Unfuddled::Error]
       def from_response(response = {})
-        new(error, response[:response_headers], code)
+        new(response[:response_headers])
       end
     end
   end
