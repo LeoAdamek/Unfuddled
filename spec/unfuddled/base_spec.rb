@@ -30,9 +30,9 @@ describe Unfuddled::Base do
 
   describe '#from_response' do
     before do
-      @from_response = Unfuddled::Base.from_response(body: {
-                                                       id: 1,
-                                                       foo: "bar" })
+      @from_response = Unfuddled::Base.from_response(:body  => {
+                                                       :id  => 1,
+                                                       :foo => "bar" })
     end
     
     it "should create a Unfuddled::Base from a HTTP Response" do
