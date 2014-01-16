@@ -17,8 +17,6 @@ module Unfuddled
               response[:body].each do |project|
                 projects << Unfuddled::Project.new(project)
               end
-            else
-              raise Unfuddle::UnexpectedResponseError.from_response(response)
             end
           end
 

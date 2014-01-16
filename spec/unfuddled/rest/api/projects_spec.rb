@@ -33,6 +33,22 @@ describe Unfuddled::REST::API::Projects do
         expect(projects.first).to be_a Unfuddled::Project
       end
     end
+
+    context 'when the account has one project' do
+      before do
+        stub_request( :get , stub_path(@client , "/projects.json"))
+          .to_return(:body => fixture("project.json") , :headers => {
+                       :content_type => "application/json"
+                     })
+      end
+
+      it 'returns an array with one Unfuddled::Project in it' do
+        projects = @client.projects
+        expect(projects).to be_an Array
+        expect(projects.length).to eq 1
+        expect(projects.first).to be_an Unfuddled::Project
+      end
+    end
   end
   
   describe '#project' do
