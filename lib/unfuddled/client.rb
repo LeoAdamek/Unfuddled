@@ -2,7 +2,7 @@ module Unfuddled
   class Client
 
     # Accessible attributes
-    attr_accessor :account , :username , :password
+    attr_accessor :subdomain , :username , :password
 
     # Constructor
     #
@@ -29,7 +29,7 @@ module Unfuddled
     # @return [Hash]
     def credentials
       {
-        :account => account,
+        :subdomain => subdomain,
         :username => username,
         :password => password
       }

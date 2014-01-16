@@ -31,7 +31,7 @@ end
 
 def stub_path(client , path)
   c = client.credentials
-  "https://#{c[:username]}:#{c[:password]}@#{c[:account]}.unfuddle.com/api/v1" + path
+  "https://#{c[:username]}:#{c[:password]}@#{c[:subdomain]}.unfuddle.com/api/v1" + path
 end
   
 

@@ -5,16 +5,20 @@ module Unfuddled
         
         # Gets the Projcets List
         #
-        # @return [Unfuddled::Project
+        # @return [Array[Unfuddled::Project]]
         def projects
           response = send(:get , '/api/v1/projects.json')
 
           if response[:body].is_a?(Hash) then
             projects = [Unfuddled::Project.from_response(response)]
           else
-            projects = []
-            response.body.each do |project|
+            if response[:body].is_a?(Array) then
+              projects = []
+              response[:body].each do |project|
                 projects << Unfuddled::Project.new(project)
+              end
+            else
+              raise Unfuddle::UnexpectedResponseError.from_response(response)
             end
           end
 

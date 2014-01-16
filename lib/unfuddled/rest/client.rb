@@ -5,6 +5,7 @@ require 'unfuddled/error'
 require 'unfuddled/error/configuration_error'
 
 require 'unfuddled/api/projects'
+require 'unfuddled/api/account'
 
 require 'faraday'
 require 'faraday_middleware'
@@ -14,6 +15,7 @@ module Unfuddled
   module REST
     class Client < Unfuddled::Client
       include Unfuddled::REST::API::Projects
+      include Unfuddled::REST::API::Account
 
       # Allow @connection_options and @middleware to be overridden
       attr_writer :connection_options, :middleware
@@ -62,7 +64,7 @@ module Unfuddled
       #
       # @return [String]
       def endpoint
-        "https://#{credentials[:account]}.unfuddle.com/api/v1"
+        "https://#{credentials[:subdomain]}.unfuddle.com/api/v1"
       end
 
       # Perform HTTP PUT Request

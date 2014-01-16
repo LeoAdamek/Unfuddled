@@ -3,11 +3,11 @@ require 'helper'
 describe Unfuddled::REST::Client do
   
   before do
-    @account = "ACCOUNT"
+    @subdomain = "subdomain"
     @username = "USERNAME"
     @password = "PASSWORD"
     @client = Unfuddled::REST::Client.new(
-                                          :account => @account,
+                                          :subdomain => @subdomain,
                                           :username => @username,
                                           :password => @password
                                           )
@@ -26,9 +26,9 @@ describe Unfuddled::REST::Client do
   end
   
   describe '.endpoint' do
-    it 'returns https://{{account}}.unfuddle.com/api/v1' do
+    it 'returns https://{{subdomain}}.unfuddle.com/api/v1' do
       expect(@client.endpoint).to be_a String
-      expect(@client.endpoint).to eq("https://#{@account}.unfuddle.com/api/v1")
+      expect(@client.endpoint).to eq("https://#{@subdomain}.unfuddle.com/api/v1")
     end
   end
 
@@ -36,7 +36,7 @@ describe Unfuddled::REST::Client do
     context 'when invalid credentials are provided' do
       it 'raises a ConfigurationError exception' do
         expect { 
-          Unfuddled::REST::Client.new( :account => ['BROKEN','CONFIG'] )
+          Unfuddled::REST::Client.new( :subdomain => ['BROKEN','CONFIG'] )
         }.to raise_exception(Unfuddled::Error::ConfigurationError)
 
       end
@@ -57,16 +57,16 @@ describe Unfuddled::REST::Client do
 
     context 'credentials are missing' do
       it 'returns false if :password is missing' do
-        client = Unfuddled::REST::Client.new(:account => 'ACCOUNT' , :username => 'USER')
+        client = Unfuddled::REST::Client.new(:subdomain => 'SUBDOMAIN' , :username => 'USER')
         expect(client.credentials?).to be false
       end
       
       it 'returns false if :username is missing' do
-        client = Unfuddled::REST::Client.new(:account => 'ACCOUNT' , :password => 'PASS')
+        client = Unfuddled::REST::Client.new(:subdomain => 'SUBDOMAIN' , :password => 'PASS')
         expect(client.credentials?).to be false
       end
 
-      it 'returns false if :account is missing' do
+      it 'returns false if :subdomain is missing' do
         client = Unfuddled::REST::Client.new(:username => 'USER' , :password => 'PASS')
         expect(client.credentials?).to be false
       end
@@ -75,19 +75,35 @@ describe Unfuddled::REST::Client do
 
   it 'does not persist credentials between clients' do
     @client_a = Unfuddled::REST::Client.new(
-                                            :account => "ACCOUNTA",
+                                            :subdomain => "subdomain",
                                             :username => "USERA",
                                             :password => "PASSWORDA"
                                             )
 
     @client_b = Unfuddled::REST::Client.new(
-                                            :account => "ACCOUNTB",
+                                            :subdomain => "subdomain",
                                             :username => "USERB",
                                             :password => "PASSWORDB"
                                             )
 
     expect(@client_a).not_to eq(@client_b)
   end
+
+=begin
+  context 'when the response is invalid' do
+    before do
+      stub_request(:get , stub_path(@client , "/error/get"))
+        .to_return(:body => fixture("invalid.json"),
+                   :headers => { :content_type => "application/json"})
+    end
+    
+    it 'should raise an Unfuddled::Error' do
+      expect(@client.get("/api/v1/error/get")).to raise_exception(Unfuddled::Error)
+    end
+  end
+=end
+
+
 
 =begin  
 # Tests for HTTP requests have ben removed because they don't work, incorrectly.

@@ -4,7 +4,7 @@ describe Unfuddled::Client do
   
   describe '#initialize' do
     it 'should take a hash for an argument' do
-      expect(Unfuddled::Client.new( {:account => 'test'} ) ).to be_an Unfuddled::Client
+      expect(Unfuddled::Client.new( {:subdomain => 'test'} ) ).to be_an Unfuddled::Client
     end
 
     it 'should take no arguments' do
