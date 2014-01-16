@@ -39,8 +39,8 @@ describe Unfuddled::REST::API::Projects do
 
     context 'with arguments' do
       before do
-        stub_request(:get , stub_path(@client , "/projects/by_name/valid_project.json"))
-          .to_return(:body => fixture("valid_project.json"),
+        stub_request(:get , stub_path(@client , "/projects/by_short_name/valid_project.json"))
+          .to_return(:body => fixture("project.json"),
                      :headers => {
                        :content_type => "application/json"
                      })
@@ -48,7 +48,7 @@ describe Unfuddled::REST::API::Projects do
 
       it 'gets an existing project by :name' do
         @client.project(:name => "valid_project")
-        expect( a_request(:get , stub_path(@client , "/projects/by_name/valid_project.json"))).to have_been_made
+        expect( a_request(:get , stub_path(@client , "/projects/by_short_name/valid_project.json"))).to have_been_made
       end
 
       it 'returns a single Unfuddled::Project' do
