@@ -67,14 +67,6 @@ module Unfuddled
         "https://#{credentials[:subdomain]}.unfuddle.com/api/v1"
       end
 
-      # Perform HTTP PUT Request
-      #
-      # @param path   [String] Request Path
-      # @param params [Hash]   Request Parameters
-      def put(path , params = {})
-        request(:put , path , params)
-      end
-
       # Perform HTTP GET Request
       #
       # @param path   [String] Request Path
