@@ -89,55 +89,6 @@ describe Unfuddled::REST::Client do
     expect(@client_a).not_to eq(@client_b)
   end
 
-=begin
-  context 'when the response is invalid' do
-    before do
-      stub_request(:get , stub_path(@client , "/error/get"))
-        .to_return(:body => fixture("invalid.json"),
-                   :headers => { :content_type => "application/json"})
-    end
-    
-    it 'should raise an Unfuddled::Error' do
-      expect(@client.get("/api/v1/error/get")).to raise_exception(Unfuddled::Error)
-    end
-  end
-=end
-
-
-
-=begin  
-# Tests for HTTP requests have ben removed because they don't work, incorrectly.
-  describe '#put' do
-
-    before do
-     stub_request( :put , stub_path(@client , "/custom/put")).with(:body => {:updated => "object"})
-    end
-
-    it 'allows custom put requests' do
-      @client.put('/api/v1/custom/put' , :updated => 'object')
-      expect( 
-             a_request(:get  , stub_path(@client , '/custom/put'))
-               .with(:body => {:updated => 'object'}) 
-             ).to have_been_made
-    end
-
-  end
-
-  describe '#get' do
-    
-    before do
-      stub_request( :get , stub_path(@client , '/custom/get?requested=body'))
-    end
-
-    it 'allows custom get requests' do
-      @client.get('/api/v1/custom/get', :requested => 'object')
-      expect(
-             a_request(:get , stub_path(@client , '/custom/get?requested=object') )
-               .with(:body => {:requested => "object" })
-             ).to have_been_made
-    end
-  end
-=end  
   describe '#post' do
     before do
       stub_request( :post ,
@@ -152,6 +103,25 @@ describe Unfuddled::REST::Client do
                .with(:body => {:created => "object"})
              ).to have_been_made
     end
+  end
+
+  context 'when the response is unsuccessful or invalid' do
+    before do
+      stub_request(:get , stub_path(@client , '/not_found'))
+        .to_return(:status => 404)
+
+      stub_request(:get , stub_path(@client , "/invalid"))
+        .to_return(:body => "Invalid Response" ,
+                   :headers => {
+                     :content_type => "application/json"
+                   })
+
+    end
+
+    it 'throws an Unfuddled::Error when the response is not vaid JSON' do
+      expect { @client.get("/api/v1/invalid") }.to raise_error(Unfuddled::Error)
+    end
+  
   end
 
 end

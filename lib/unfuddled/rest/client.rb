@@ -113,7 +113,8 @@ module Unfuddled
 
         response.env
       rescue Faraday::Error::ClientError, JSON::ParserError => error
-        raise Unfuddled::Error.new error
+        error = Unfuddled::Error.new(error)
+        raise error
       end
                                  
       # Get Request Headers
