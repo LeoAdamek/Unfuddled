@@ -34,6 +34,54 @@ describe Unfuddled::REST::API::Projects do
       end
     end
 
+    context 'with a query' do
+      it 'returns an array of a single project with matchig :id' do
+        projects = @client.projects(:id => 1)
+        expect(projects).to be_an Array
+        expect(projects.length).to eq 1
+        expect(projects.first).to be_an Unfuddled::Project
+        expect(projects.first.id).to eq 1
+      end
+
+      it 'returns an array of a single project with matching :name' do
+        projects = @client.projects(:name => "example")
+        expect(projects).to be_an Array
+        expect(projects.length).to eq 1
+        expect(projects.first).to be_an Unfuddled::Project
+        expect(projects.first.id).to eq 1
+      end
+
+      it 'returns an array of matching projects with a regex for :name' do
+        projects = @client.projects(:name => /^project_/)
+        expect(projects).to be_an Array
+        expect(projects.first.short_name).to match /^project_/
+      end
+
+      it 'returns an array of projects with an :id in a range' do
+        projects = @client.projects(:id => [2..4])
+        expect(projects).to be_an Array
+        expect(projects.length).to eq 2
+        expect(projcets.first).to be_an Unfuddled::Project
+        
+        projects.each do |project|
+          expect( (2..4).include?(project.id) ).to be_true
+        end
+      end
+
+      it 'returns an array of projects with :time_tracking_enabled' do
+        projects = @clinet.projects(:time_tracking_enabled => true)
+        expect(projects).to be_an Array
+
+        projects.each do |project|
+          expect(project.time_tracking_enabled).to be_true
+        end
+      end
+        
+      
+        
+    end
+
+
     context 'when the account has one project' do
       before do
         stub_request( :get , stub_path(@client , "/projects.json"))
