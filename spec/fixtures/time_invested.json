@@ -1,0 +1,19 @@
+{
+    "start_date" : "2014-01-01",
+    "end_date"   : "2014-01-15",
+    
+    "groups" : [{
+        "total" : 3.0,
+        "title" : "John S.",
+        "time_entries" : [{
+            "person_id" : 1,
+            "ticket_id" : 1,
+            "updated_at" : "2014-01-01T17:30:00Z",
+            "hours" : 3.0,
+            "created_at" : "2014-01-01T09:00:00Z",
+            "description" : "Test time entry",
+            "date" : "2014-01-01"
+        }]
+    }]
+        
+}

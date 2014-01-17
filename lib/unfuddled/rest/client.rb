@@ -6,6 +6,7 @@ require 'unfuddled/error/configuration_error'
 
 require 'unfuddled/api/projects'
 require 'unfuddled/api/account'
+require 'unfuddled/api/time_tracking'
 
 require 'faraday'
 require 'faraday_middleware'
@@ -16,6 +17,7 @@ module Unfuddled
     class Client < Unfuddled::Client
       include Unfuddled::REST::API::Projects
       include Unfuddled::REST::API::Account
+      include Unfuddled::REST::API::TimeTracking
 
       # Allow @connection_options and @middleware to be overridden
       attr_writer :connection_options, :middleware

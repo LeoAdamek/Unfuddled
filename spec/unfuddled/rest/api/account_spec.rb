@@ -35,6 +35,27 @@ describe Unfuddled::REST::API::Account do
       end
     end
   end
+
+  describe '#account_details' do
+    before do
+      stub_request(:get , stub_path(@client , '/initializer.json'))
+        .to_return(:body => fixture("account_details.json"),
+                   :headers => {
+                     :content_type => "application/json"
+                   })
+    end
+
+    it 'GETs the account details' do
+      @client.account_details
+      expect(a_request(:get , stub_path(@client , '/initializer.json'))).to have_been_made
+    end
+    
+    it 'returns an Unfuddled::AccountDetails' do
+      expect(@client.account_details).to be_an Unfuddled::AccountDetails
+    end
+
+  end
+    
       
 
 end

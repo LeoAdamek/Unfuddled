@@ -9,7 +9,7 @@
     "description"                           : "",
     "disk_usage"                            : 65536,
     "enable_time_tracking"                  : true,
-    "id"                                    : 1024,
+    "id"                                    : 1,
     "s3_access_key_id"                      : null,
     "s3_backup_enabled"                     : false,
     "s3_bucket_name"                        : null,

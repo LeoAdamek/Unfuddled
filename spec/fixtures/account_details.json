@@ -1,0 +1,152 @@
+{
+    "involvements" : [{
+        "person_id" : 1,
+        "messages" : "none",
+        "tickets" : "none",
+        "people" : "none",
+        "is_administrator" : true,
+        "project_id" : 1,
+        "created_at" : "2014-01-01T00:00:00Z",
+        "updated_at" : "2014-01-01T00:00:00Z",
+        "milestones" : "none",
+        "source" : "none",
+        "id" : 10
+    },{
+        "person_id" : 2,
+        "messages"  : "manage" , 
+        "tickets" : "manage" ,
+        "people" : "manage",
+        "source" : "commit",
+        "is_administrator" : true,
+        "updated_at" : "2014-01-01T00:00:00Z",
+        "created_at" : "2014-01-01T00:00:00Z",
+        "milestones" : "manage",
+        "id" : 16
+    }],
+
+    "people" : [{
+        "notification_scope_milestones" : "all",
+        "identity_url" : "",
+        "time_zone" : "London",
+        "last_signed_in" : "2014-01-15T09:00:00Z",
+        "last_name" : "Smith",
+        "notification_scope_source" : "all",
+        "notification_frequency" : "immediate",
+        "username" : "jsmith",
+        "notification_scope_tickets" : "all",
+        "is_removed" : false,
+        "notification_ignore_self" : false,
+        "is_owner" : true,
+        "notification_scope_notebooks" : "all",
+        "text_markup" : "markdown",
+        "updated_at" : "2014-01-01T00:00:00Z",
+        "last_notification_sent" : "2014-01-15T17:30:00Z",
+        "created_at" : "2014-01-01T00:00:00Z",
+        "email" : "jsmith@example.com",
+        "notification_scope_messages" : "all",
+        "id" : 1,
+        "account_id" : 1,
+        "first_name" : "John"
+    },{
+        "notification_scope_milestones" : "all",
+        "identity_url" : "",
+        "time_zone" : "London",
+        "last_signed_in" : "2014-01-15T09:00:00Z",
+        "last_name" : "Everyman",
+        "notification_scope_source" : "all",
+        "notification_frequency" : "immediate",
+        "username" : "jeveryman",
+        "notification_scope_tickets" : "all",
+        "is_removed" : false,
+        "notification_ignore_self" : false,
+        "is_owner" : false,
+        "notification_scope_notebooks" : "all",
+        "text_markup" : "markdown",
+        "updated_at" : "2014-01-01T00:00:00Z",
+        "last_notification_sent" : "2014-01-15T17:30:00Z",
+        "created_at" : "2014-01-01T00:00:00Z",
+        "email" : "jeveryman@example.com",
+        "notification_scope_messages" : "all",
+        "id" : 2,
+        "account_id" : 1,
+        "first_name" : "James"
+    }],
+
+    "account" : {
+        "features" : {
+            "storage" : 6144,
+            "time_tracking" : true,
+            "max_people" : 1000,
+            "attachments" : true,
+            "max_pages" : 99999,
+            "ssl" : true,
+            "beta" : false
+        },
+        
+        "email_invoice" : false,
+        "subdomain" : "text",
+        "suitable_plan" : null,
+        "flagg_for_billing_error" : true,
+        "plan" : "corporate" ,
+        "default_time_zone" : "London",
+        "access_key" : "0123456789ABCDEF0123456789ABCDEF",
+        "notebook_pages" : 10,
+        "title" : "Test Company",
+        "billing_error_date" : null,
+        "disk_usage" : 1135188,
+        "updated_at" : "2014-01-15T17:30:00Z",
+        "text_markup" : "markdown,textile,plain",
+        "created_at" : "2014-01-01T00:00:00Z",
+        "trial_expires_on" : null,
+        "force_ssl" : true,
+        "default_ticket_report_id" : 0,
+        "id" : 1,
+        "trial_enabled_on" : null,
+        "description" : "Test Account for Unfuddled Gem"
+    },
+
+    "repositories" : [{
+        "system" : "svn",
+        "callback_url" : null,
+        "title" : "Exmaple SVN Repository",
+        "disk_usage" : 29816,
+        "changesets_manage_manually" : false,
+        "updated_at": "2014-01-01T00:00:00Z",
+        "abbreviation" : "testsvn",
+        "account_id" : 1,
+        "id" : 20,
+        "powerful_commit_messages" : true,
+        "description" : "Example SVN repository for testing",
+        "projects" : [1,2]
+    }],
+
+    "custom_field_values" : [{
+        "field_number" : 1,
+        "value" : "Approved",
+        "updated_at" : "2014-01-01T00:00:00Z",
+        "created_at" : "2014-01-01T00:00:00Z",
+        "project_id" : 1,
+        "id" : 2
+    },{
+        "field_number" : 1,
+        "value" : "Rejected",
+        "updated_at" : "2014-01-01T00:00:00Z",
+        "created_at" : "2014-01-01T00:00:00Z",
+        "project_id" : 1,
+        "id" : 3
+    }],
+
+    "milestones" : {
+        "archived" : false,
+        "person_responsible_id" : 1,
+        "due_on" : null,
+        "title" : "Features",
+        "updated_at" : "2014-01-10T17:30:00Z",
+        "created_at" : "2014-01-10T17:30:00Z",
+        "project_id" : 1,
+        "completed"  : false,
+        "id" : 100,
+        "description" : "New Features"
+    }
+
+}
