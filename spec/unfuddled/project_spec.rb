@@ -14,6 +14,13 @@ describe Unfuddled::Project do
                    :content_type => 'application/json'
                  })
 
+    stub_request(:get , stub_path(@client , "/projects/1024/tickets.json"))
+      .to_return(:body => fixture("tickets.json"),
+                 :headers => {
+                   :content_type => "application/json"
+                 })
+                
+
     @project = @client.projects.first
   end
 

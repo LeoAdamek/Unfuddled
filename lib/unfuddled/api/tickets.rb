@@ -16,7 +16,7 @@ module Unfuddled
 
         # Gets tickets for a project
         def tickets_for_project(project_id)
-          tickets = send(:get , '/api/v1/projects/#{project_id}/tickets.json')
+          tickets = send(:get , "/api/v1/projects/#{project_id}/tickets.json")
 
           process_list_response( tickets , Unfuddled::Ticket )
         end
