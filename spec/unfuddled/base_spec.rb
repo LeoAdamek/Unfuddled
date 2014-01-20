@@ -28,4 +28,5 @@ describe Unfuddled::Base do
     end
 
   end
+      
 end

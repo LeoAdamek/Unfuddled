@@ -1,0 +1,15 @@
+{
+    "groups" : [
+        {
+            "tickets" : [
+                {
+                    "title" : "Ticket 1"
+                },{
+                    "title" : "Ticket 2"
+                },{
+                    "title" : "Ticket 3"
+                }
+            ]
+        }
+    ]
+}

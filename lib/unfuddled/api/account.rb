@@ -14,7 +14,7 @@ module Unfuddled
 
         # Get the Account details
         # (account-wide lookup values)
-        #
+        # 
         # @return [Unfuddled::AccountDetails]
         def account_details
           Unfuddled::AccountDetails.from_response(send(:get , '/api/v1/initializer.json'))

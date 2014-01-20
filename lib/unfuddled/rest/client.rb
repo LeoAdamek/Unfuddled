@@ -7,15 +7,19 @@ require 'unfuddled/error/configuration_error'
 require 'unfuddled/api/projects'
 require 'unfuddled/api/account'
 require 'unfuddled/api/time_tracking'
+require 'unfuddled/api/tickets'
 
 require 'faraday'
 require 'faraday_middleware'
 require 'json'
 
+
 module Unfuddled
   module REST
     class Client < Unfuddled::Client
+
       include Unfuddled::REST::API::Projects
+      include Unfuddled::REST::API::Tickets
       include Unfuddled::REST::API::Account
       include Unfuddled::REST::API::TimeTracking
 
@@ -122,6 +126,25 @@ module Unfuddled
           :accept => 'application/json',
           :content_type => 'application/json; charset=UTF-8'
         }
+      end
+
+      # Process a list response
+      #
+      # Makes sure response is always an array of klass,
+      # even if there is only one item
+      private
+      def process_list_response(response_body , klass = Unfuddled::Base)
+        if response_body.is_a?(Hash)
+          results = [ klass.from_response( response_body , self) ]
+        else
+          results = []
+          response_body.each do |response_item|
+            results << klass.from_response( response_item , self)
+          end
+        end
+
+        results
+          
       end
                           
     end

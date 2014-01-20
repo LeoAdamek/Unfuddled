@@ -1,5 +1,10 @@
 module Unfuddled
   class Project < Unfuddled::Base
-    attr_reader :account_id
+
+    def tickets
+      @client.tickets_for_project( id )
+    end
+      
+
   end
 end

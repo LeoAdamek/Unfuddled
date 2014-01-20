@@ -52,6 +52,14 @@ describe Unfuddled::Project do
       expect(@project.ticket_field3_title).to be_a String
       expect(@project.ticket_field3_title).to eq "Field 3"
     end
+
+    it 'includes :tickets which is an array of Unfuddled::Ticket' do
+      expect(@project.tickets).to be_an Array
+      
+      @project.tickets.each do |ticket|
+        expect( ticket ).to be_an Unfuddled::Ticket
+      end
+    end
   end
 
 end

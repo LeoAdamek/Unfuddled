@@ -14,18 +14,7 @@ module Unfuddled
         def projects(options = {})
           response = send(:get , '/api/v1/projects.json')
 
-          if response[:body].is_a?(Hash) then
-            projects = [Unfuddled::Project.from_response(response)]
-          else
-            if response[:body].is_a?(Array) then
-              projects = []
-              response[:body].each do |project|
-                projects << Unfuddled::Project.new(project)
-              end
-            end
-          end
-
-          projects
+          process_list_response( response[:body] , Unfuddled::Project)
         end
 
         # Gets a single project
@@ -41,7 +30,7 @@ module Unfuddled
           url = "/api/v1/projects/#{options[:id]}.json" if options.keys.include?(:id)
           url = "/api/v1/projects/by_short_name/#{options[:name]}.json" if options.keys.include?(:name)
 
-          Unfuddled::Project.from_response( send(:get , url) )
+          Unfuddled::Project.from_response( send(:get , url)[:body] , self)
         end
 
         
