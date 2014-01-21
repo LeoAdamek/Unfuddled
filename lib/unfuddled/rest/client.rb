@@ -8,6 +8,7 @@ require 'unfuddled/api/projects'
 require 'unfuddled/api/account'
 require 'unfuddled/api/time_tracking'
 require 'unfuddled/api/tickets'
+require 'unfuddled/api/people'
 
 require 'faraday'
 require 'faraday_middleware'
@@ -18,6 +19,7 @@ module Unfuddled
   module REST
     class Client < Unfuddled::Client
 
+      include Unfuddled::REST::API::People
       include Unfuddled::REST::API::Projects
       include Unfuddled::REST::API::Tickets
       include Unfuddled::REST::API::Account
