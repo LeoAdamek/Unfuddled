@@ -124,6 +124,18 @@ describe Unfuddled::REST::Client do
   
   end
 
+  context 'when the requested resource is not found (404)' do
+    before do
+      stub_request(:get , stub_path(@client , '/not_found'))
+        .to_return(:status => 404)
+    end
+
+    it 'raises an Unfuddled::NotFound error' do
+      expect { @client.get("/api/v1/not_found") }.to raise_error(Unfuddled::NotFoundError)
+    end
+  end
+
+
 end
 
 
