@@ -132,7 +132,7 @@ module Unfuddled
       #
       # Makes sure response is always an array of klass,
       # even if there is only one item
-      private
+      public
       def process_list_response(response_body , klass = Unfuddled::Base)
         if response_body.is_a?(Hash)
           results = [ klass.from_response( response_body , self) ]

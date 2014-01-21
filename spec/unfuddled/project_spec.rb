@@ -67,6 +67,6 @@ describe Unfuddled::Project do
         expect( ticket ).to be_an Unfuddled::Ticket
       end
     end
-  end
 
+  end
 end

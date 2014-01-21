@@ -3,7 +3,9 @@
         {
             "tickets" : [
                 {
-                    "title" : "Ticket 1"
+                    "title" : "Ticket 1",
+                    "project_id" : 1,
+                    "id" : 1024
                 },{
                     "title" : "Ticket 2"
                 },{
