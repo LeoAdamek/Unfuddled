@@ -3,8 +3,7 @@ require 'unfuddled/client'
 
 require 'unfuddled/error'
 require 'unfuddled/error/configuration_error'
-require 'unfuddled/error/not_found_error'
-require 'unfuddled/error/access_denied_error'
+require 'unfuddled/error/http_error_response'
 
 require 'unfuddled/api/account'
 require 'unfuddled/api/milestones'
@@ -116,9 +115,8 @@ module Unfuddled
           request.headers.update(request_headers(method, path, params))
         end
 
-        raise Unfuddled::NotFoundError.new if response.status == 404
-        raise Unfuddled::AccessDeniedError.new if response.status == 403
-        
+        # Check for HTTP error responses, which are all >= 400
+        raise Unfuddled::HTTPErrorResponse.new(:code => response.status) if response.status >= 400
 
         response.env
       rescue Faraday::Error::ClientError, JSON::ParserError => error

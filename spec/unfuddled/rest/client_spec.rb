@@ -130,8 +130,8 @@ describe Unfuddled::REST::Client do
         .to_return(:status => 404)
     end
 
-    it 'raises an Unfuddled::NotFound error' do
-      expect { @client.get("/api/v1/not_found") }.to raise_error(Unfuddled::NotFoundError)
+    it 'raises an Unfuddled::HTTPErrorResponse' do
+      expect { @client.get("/api/v1/not_found") }.to raise_error(Unfuddled::HTTPErrorResponse)
     end
   end
 
@@ -141,8 +141,8 @@ describe Unfuddled::REST::Client do
         .to_return(:status => 403)
     end
 
-    it 'raises an Unfuddled::AccessDeniedError' do
-      expect { @client.get("/api/v1/not_allowed") }.to raise_error(Unfuddled::AccessDeniedError)
+    it 'raises an Unfuddled::HTTPErrorResponse' do
+      expect { @client.get("/api/v1/not_allowed") }.to raise_error(Unfuddled::HTTPErrorResponse)
     end
   end
 
