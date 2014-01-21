@@ -17,5 +17,11 @@ module Unfuddled
       @client.project(:id => project_id)
     end
 
+    # To String
+    # @return [String]
+    def to_s
+      "Unfuddled::Ticket: ##{number} #{title}"
+    end
+
   end
 end

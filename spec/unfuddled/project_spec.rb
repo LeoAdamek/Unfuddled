@@ -69,4 +69,12 @@ describe Unfuddled::Project do
     end
 
   end
+
+  describe '#to_s' do
+    it 'should be "Unfuddled::Project: :title"' do
+      expect(@project.to_s).to be_a String
+      expect(@project.to_s).to eq "Unfuddled::Project: Example Project"
+    end
+  end
+
 end
