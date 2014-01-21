@@ -4,27 +4,28 @@ require 'unfuddled/client'
 require 'unfuddled/error'
 require 'unfuddled/error/configuration_error'
 
-require 'unfuddled/api/projects'
 require 'unfuddled/api/account'
-require 'unfuddled/api/time_tracking'
-require 'unfuddled/api/tickets'
-require 'unfuddled/api/people'
 require 'unfuddled/api/milestones'
+require 'unfuddled/api/people'
+require 'unfuddled/api/projects'
+require 'unfuddled/api/tickets'
+require 'unfuddled/api/time_tracking'
 
 require 'faraday'
 require 'faraday_middleware'
 require 'json'
 
+require 'memoizer'
 
 module Unfuddled
   module REST
     class Client < Unfuddled::Client
 
+      include Unfuddled::REST::API::Account
+      include Unfuddled::REST::API::Milestones
       include Unfuddled::REST::API::People
       include Unfuddled::REST::API::Projects
       include Unfuddled::REST::API::Tickets
-      include Unfuddled::REST::API::Account
-      include Unfuddled::REST::API::Milestones
       include Unfuddled::REST::API::TimeTracking
 
       # Allow @connection_options and @middleware to be overridden

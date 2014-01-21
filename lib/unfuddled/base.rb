@@ -1,8 +1,10 @@
 require 'ostruct'
+require 'memoizer'
 
 module Unfuddled
   class Base < ::OpenStruct
     attr_accessor :client
+    include Memoizer
 
     class << self
 

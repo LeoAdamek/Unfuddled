@@ -16,8 +16,10 @@ module Unfuddled
 
     # Get the milestones
     #
+    # @memoized
     # @param status [Symbol] Milestone Status
     #                        Can be :late , :upcoming , :completed or :archived
+
     def milestones(status = nil)
       if status.nil? then
         url = "/api/v1/projects/#{id}/milestones.json"
@@ -27,6 +29,7 @@ module Unfuddled
 
       @client.process_list_response( @client.send(:get , url)[:body] , Unfuddled::Milestone )
     end
+    memoize(:milestones)
 
   end
 end

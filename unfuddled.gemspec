@@ -15,9 +15,9 @@ Gem::Specification.new do |s|
 
   s.license = 'MIT'
 
-  s.add_dependency 'addressable'
   s.add_dependency 'faraday'
   s.add_dependency 'faraday_middleware'
+  s.add_dependency 'memoizer'
   
   s.add_development_dependency 'bundler'
 

@@ -1,7 +1,11 @@
+require 'memoizer'
+
 module Unfuddled
   module REST
     module API
       module Tickets
+
+        include ::Memoizer
 
         # Gets tickets
         #
@@ -13,6 +17,7 @@ module Unfuddled
 
           process_list_response( tickets , Unfuddled::Ticket)
         end
+        memoize(:tickets)
 
         # Gets tickets for a project
         def tickets_for_project(project_id)
