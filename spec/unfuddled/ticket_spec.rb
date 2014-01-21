@@ -12,19 +12,20 @@ describe Unfuddled::Ticket do
                                           :username  => @username,
                                           :password  => @password
                                           )
+
+    stub_request(:get , stub_path(@client , '/ticket_reports/dynamic.json'))
+      .to_return(:body => fixture("tickets.json"),
+                 :headers => {
+                   :content_type => "application/json"
+                 })
+
+    @ticket = @client.tickets.first
+
   end
 
   describe '#time_entries' do
 
     before do
-      stub_request(:get , stub_path(@client , '/ticket_reports/dynamic.json'))
-        .to_return(:body => fixture("tickets.json"),
-                   :headers => {
-                     :content_type => "application/json"
-                   })
-
-      @ticket = @client.tickets.first
-
       stub_request( :get , stub_path(@client , '/projects/1/tickets/1024/time_entries.json'))
         .to_return(:body => fixture("ticket_time_entries.json"),
                    :headers => {
@@ -47,6 +48,26 @@ describe Unfuddled::Ticket do
       end
     end
     
+  end
+
+  describe '#project' do
+    before do
+      stub_request(:get , stub_path(@client , "/projects/1.json"))
+        .to_return(:body => fixture("project.json"),
+                   :headers => {
+                     :content_type => "application/json"
+                   })
+    end
+
+    it 'gets the project' do
+      @ticket.project
+      
+      expect( a_request(:get , stub_path(@client , "/projects/1.json"))).to have_been_made
+    end
+
+    it 'returns an Unfuddled::Project' do
+      expect(@ticket.project).to be_an Unfuddled::Project
+    end
   end
 
 end
