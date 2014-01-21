@@ -9,6 +9,7 @@ require 'unfuddled/api/account'
 require 'unfuddled/api/time_tracking'
 require 'unfuddled/api/tickets'
 require 'unfuddled/api/people'
+require 'unfuddled/api/milestones'
 
 require 'faraday'
 require 'faraday_middleware'
@@ -23,6 +24,7 @@ module Unfuddled
       include Unfuddled::REST::API::Projects
       include Unfuddled::REST::API::Tickets
       include Unfuddled::REST::API::Account
+      include Unfuddled::REST::API::Milestones
       include Unfuddled::REST::API::TimeTracking
 
       # Allow @connection_options and @middleware to be overridden

@@ -77,4 +77,65 @@ describe Unfuddled::Project do
     end
   end
 
+  describe '#milestones' do
+
+    context 'without any arguments' do
+      before do
+        stub_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones.json"))
+          .to_return(:body => "{}",
+                     :headers => {
+                       :content_type => "application/json"
+                     })
+      end
+
+      it 'gets milestones with the project ID' do
+        @project.milestones
+        expect( a_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones.json"))).to have_been_made
+      end
+
+      it 'returns an array of Unfuddled::Milestone' do
+        expect(@project.milestones).to be_an Array
+
+        @project.milestones.each do |milestone|
+          expect(milestone).to be_an Unfuddled::Milestone
+        end
+      end
+    end
+
+    context 'when passed :late , :upcoming , :completed or :archived' do
+      
+      before do
+        %w(late upcoming completed archived).each do |status|
+          stub_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones/#{status}.json"))
+            .to_return(:body => "{}",
+                       :headers => {
+                         :content_type => "application/json"
+                       })
+        end
+      end
+
+      it 'gets the late milestones when given :late' do
+        @project.milestones(:late)
+        expect(a_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones/late.json"))).to have_been_made
+      end
+
+      it 'gets the upcoming milestones when given :upcoming' do
+        @project.milestones(:upcoming)
+        expect(a_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones/upcoming.json"))).to have_been_made
+      end
+
+      it 'gets the completed milestones when given :completed' do
+        @project.milestones(:completed)
+        expect(a_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones/completed.json"))).to have_been_made
+      end
+
+      it 'gets the archived milestones when given :archived' do
+        @project.milestones(:archived)
+        expect(a_request(:get , stub_path(@client , "/projects/#{@project.id}/milestones/archived.json"))).to have_been_made
+      end
+
+    end
+
+  end
+
 end
