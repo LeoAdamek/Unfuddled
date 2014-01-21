@@ -4,6 +4,7 @@ require 'unfuddled/client'
 require 'unfuddled/error'
 require 'unfuddled/error/configuration_error'
 require 'unfuddled/error/not_found_error'
+require 'unfuddled/error/access_denied_error'
 
 require 'unfuddled/api/account'
 require 'unfuddled/api/milestones'
@@ -116,6 +117,8 @@ module Unfuddled
         end
 
         raise Unfuddled::NotFoundError.new if response.status == 404
+        raise Unfuddled::AccessDeniedError.new if response.status == 403
+        
 
         response.env
       rescue Faraday::Error::ClientError, JSON::ParserError => error

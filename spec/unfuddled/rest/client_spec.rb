@@ -135,6 +135,18 @@ describe Unfuddled::REST::Client do
     end
   end
 
+  context 'when the user it not allowed to view the resource (403)' do
+    before do
+      stub_request(:get , stub_path(@client , '/not_allowed'))
+        .to_return(:status => 403)
+    end
+
+    it 'raises an Unfuddled::AccessDeniedError' do
+      expect { @client.get("/api/v1/not_allowed") }.to raise_error(Unfuddled::AccessDeniedError)
+    end
+  end
+
+
 
 end
 
