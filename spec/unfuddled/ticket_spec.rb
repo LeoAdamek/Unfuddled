@@ -72,7 +72,7 @@ describe Unfuddled::Ticket do
 
 
   describe '#to_s' do
-    it 'should be "Unfuddled::Ticket: #:number :title"' do
+    it 'should be "Unfuddled::Ticket: #:number :summary"' do
       expect(@ticket.to_s).to be_a String
       expect(@ticket.to_s).to eq "Unfuddled::Ticket: #404 Example Ticket"
     end

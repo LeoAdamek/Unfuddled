@@ -20,7 +20,7 @@ module Unfuddled
     # To String
     # @return [String]
     def to_s
-      "Unfuddled::Ticket: ##{number} #{title}"
+      "Unfuddled::Ticket: ##{number} #{summary}"
     end
 
     # Get the custom fields

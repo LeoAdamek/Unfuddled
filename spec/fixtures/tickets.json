@@ -3,7 +3,7 @@
         {
             "tickets" : [
                 {
-                    "title" : "Example Ticket",
+                    "summary" : "Example Ticket",
                     "project_id" : 1,
                     "id" : 1024,
                     "number" : 404,
