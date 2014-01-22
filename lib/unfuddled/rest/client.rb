@@ -124,7 +124,7 @@ module Unfuddled
         end
 
         # Check for HTTP error responses, which are all >= 400
-        raise Unfuddled::HTTPErrorResponse.new(:code => response.status) if response.status >= 400
+        raise Unfuddled::HTTPErrorResponse.new(:code => response.status, :response => response) if response.status >= 400
 
         response.env
       rescue Faraday::Error::ClientError, JSON::ParserError => error
@@ -163,7 +163,7 @@ module Unfuddled
         results
           
       end
-                          
+                 
     end
   end
 end

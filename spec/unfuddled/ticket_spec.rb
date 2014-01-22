@@ -183,6 +183,35 @@ describe Unfuddled::Ticket do
         expect(a_request(:put , stub_path(@client , "/projects/#{@ticket.project_id}/tickets/#{@ticket.id}.json"))).to have_been_made
       end
     end
+  end
+
+  describe '#comments' do
+
+    context 'without any arguments' do
+
+      before do
+        stub_request(:get , stub_path(@client , "/projects/#{@ticket.project_id}/tickets/#{@ticket.id}/comments.json"))
+          .to_return(:body => "{}",
+                     :headers => {
+                       :content_type => "application/json"
+                     })
+      end
+
+      it 'GETs the comments' do
+        @ticket.comments
+        expect(a_request(:get , stub_path(@client, "/projects/#{@ticket.project_id}/tickets/#{@ticket.id}/comments.json"))).to have_been_made
+      end
+
+      it 'returns an Array of Unfuddled::Comment' do
+        comments = @ticket.comments
+        expect(comments).to be_an Array
+
+        comments.each do |comment|
+          expect(comment).to be_an Unfuddled::Comment
+        end
+      end
+
+    end
 
   end
 end

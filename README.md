@@ -68,5 +68,6 @@ time_tracking = unfuddle.time_invested(:start_date => "2014-01-01" , :end_date =
 ```
 
 Contributing
-------------
+--------------------
 Contribute with a fork, some code and a pull request.
+

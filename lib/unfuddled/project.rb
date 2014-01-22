@@ -1,4 +1,8 @@
 module Unfuddled
+  # Project Class
+  #
+  # Class for a Project hosted on Unfuddle
+  # Provides access to milestones , tickets and messages
   class Project < Unfuddled::Base
 
     # Get Project Tickets
@@ -18,8 +22,8 @@ module Unfuddled
     #
     # @memoized
     # @param status [Symbol] Milestone Status
-    #                        Can be :late , :upcoming , :completed or :archived
-
+    #                        Can be +:late+ , +:upcoming+ , +:completed+ or +:archived+
+    # @return [Array(Unfuddled::Milestone)]
     def milestones(status = nil)
       if status.nil? then
         url = "/api/v1/projects/#{id}/milestones.json"
