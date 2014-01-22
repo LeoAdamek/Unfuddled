@@ -25,7 +25,34 @@ module Unfuddled
 
           process_list_response( tickets , Unfuddled::Ticket )
         end
-        
+
+
+        # Create a new Ticket
+        #
+        # @return [Unfuddled::Ticket]
+        # @param ticket [Unfuddled::Ticket] Ticket to create
+        def create_ticket(ticket)
+          raise Unfuddled::Error.new("Ticket must have a Project ID") if ticket.project_id.nil?
+          raise Unfuddled::Error.new("Ticket must have a summary") if ticket.summary.nil?
+          raise Unfuddled::Error.new("Ticket must have a priority between 1 and 5") unless ticket.priority.is_a?(Integer) and ticket.priority.between?(1,5)
+
+          begin
+            url = "/api/v1/projects/#{ticket.project_id}/tickets.json"
+            id  = send(:post , url, ticket.to_h)[:body][:id]
+            
+            # Add the ID with to ticket
+            ticket.id = id
+
+            # Attach the client to the ticket
+            ticket.client = self
+            
+            ticket
+          rescue Unfuddled::HTTPErrorResponse => error
+            error
+          end
+
+        end
+
       end
     end
   end

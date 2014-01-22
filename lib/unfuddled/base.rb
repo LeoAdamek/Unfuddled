@@ -2,6 +2,10 @@ require 'ostruct'
 require 'memoizer'
 
 module Unfuddled
+  # Base Class for Unfuddled Objects
+  #
+  # Inherits from [::OpenStruct] and extends with +#from_response+
+  # To allow objects to be created which can make additional requests
   class Base < ::OpenStruct
     attr_accessor :client
     include Memoizer
@@ -16,6 +20,7 @@ module Unfuddled
     class << self
 
       # Construct object from Response
+      # Attaching the client to it for additional requests
       #
       # @param response [Hash]
       # @return [Unfuddled::Base]

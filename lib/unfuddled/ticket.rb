@@ -35,15 +35,19 @@ module Unfuddled
     # @return [Array(Unfuddled::CustomField)]
     def custom_fields
       p = project
+
+      field_values = @client.account_details.custom_field_values.select { |fv| fv["project_id"] == p.id }
+
       fields = []
 
       3.times do |i|
         n = i+1
+        field_value = field_values.select { |fv| fv[:id] == send(:"field#{n}_value_id") }
         fields << Unfuddled::CustomField.new(
                                              :number => n,
                                              :title  => p.send(:"ticket_field#{n}_title"),
                                              :type   => p.send(:"ticket_field#{n}_disposition"),
-                                             :value  => send(:"field#{n}_value_id")
+                                             :value  => field_value
                                              )
       end
 
@@ -93,13 +97,10 @@ module Unfuddled
 
     # Save a Ticket
     def save
-      if id.nil? then
-        url = "/api/v1/projects/#{project_id}/tickets.json"
-        method = :post
-      else
-        url = "/api/v1/projects/#{project_id}/tickets/#{id}.json"
-        method = :put
-      end
+      raise Unfuddled::Error.new("Cannot Create a new ticket like this. Use Unfuddled::Ticket.create(@client , DATA)") if id.nil?
+
+      url = "/api/v1/projects/#{project_id}/tickets/#{id}.json"
+      method = :put
 
       @client.send(method , url , send(:to_h))
     end

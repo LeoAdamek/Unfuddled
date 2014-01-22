@@ -2,7 +2,7 @@ module Unfuddled
   class Client
 
     # Accessible attributes
-    attr_accessor :subdomain , :username , :password
+    attr_accessor :subdomain , :username , :password , :logging
 
     # Constructor
     #

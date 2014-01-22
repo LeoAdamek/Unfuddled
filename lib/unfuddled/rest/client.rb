@@ -67,6 +67,8 @@ module Unfuddled
           # Parse responses with Json
           builder.response :json , :content_type => /\bjson$/
 
+          builder.use Faraday::Response::Logger if @logging
+
           # Use the ruby built in 'net/http' adapter
           builder.adapter :net_http
         end

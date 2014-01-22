@@ -32,7 +32,6 @@ module Unfuddled
 
           Unfuddled::Project.from_response( send(:get , url)[:body] , self)
         end
-
         
       end
     end

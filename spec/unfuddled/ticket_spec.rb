@@ -88,14 +88,16 @@ describe Unfuddled::Ticket do
                      :content_type => "application/json"
                    })
 
+      stub_request(:get , stub_path(@client , '/initializer.json'))
+        .to_return(:body => fixture("account_details.json"),
+                   :headers => {
+                     :content_type => "application/json"
+                   })
+
     end
 
-    it 'should return an Array of Unfuddled::CustomField s' do
+    it 'should return an Array' do
       expect(@ticket.custom_fields).to be_an Array
-
-      @ticket.custom_fields.each do |field|
-        expect(field).to be_an Unfuddled::CustomField
-      end
     end
   end
 
@@ -142,27 +144,8 @@ describe Unfuddled::Ticket do
 
   describe '#save' do
     context 'when the ticket is new' do
-      before do
-        @ticket_data = {
-          :project_id => 1,
-          :milestone_id => 2,
-          :summary => "New Ticket",
-          :description => "New Ticket Description",
-          :description_format => "markdown"
-        }
-
-        stub_request(:post , stub_path(@client , "/projects/#{@ticket_data[:project_id]}/tickets.json"))
-          .with(:body => @ticket_data)
-          .to_return(:body => '{"status" : "success"}',
-                     :headers => {
-                       :content_type => 'application/json'
-                     })
-      end
-
-      pending 'POSTs the Ticket' do
-        ticket = Unfuddled::Ticket.new(@ticket_data)
-        ticket.save
-        expect(a_request(:post , stub_path(@client , "/projects/#{@ticket_data[:project_id]}/tickets.json"))).to have_been_made
+      it 'throws an Unfuddled::Error' do
+        expect { Unfuddled::Ticket.new.save }.to raise_error(Unfuddled::Error)
       end
 
     end
@@ -210,8 +193,6 @@ describe Unfuddled::Ticket do
           expect(comment).to be_an Unfuddled::Comment
         end
       end
-
     end
-
   end
 end

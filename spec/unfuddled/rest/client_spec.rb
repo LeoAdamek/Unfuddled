@@ -47,7 +47,7 @@ describe Unfuddled::REST::Client do
         expect { Unfuddled::REST::Client.new }.not_to raise_error
       end
     end
-    
+
   end
 
   describe '.credentials?' do

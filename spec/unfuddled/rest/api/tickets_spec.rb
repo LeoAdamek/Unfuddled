@@ -45,4 +45,39 @@ describe Unfuddled::REST::API::Tickets do
 
   end
 
+
+  describe '#create_ticket' do
+    before do
+      @ticket = Unfuddled::Ticket.new(
+        :project_id => 1,
+        :milestone_id => 2,
+        :summary => "My New Ticket",
+                                      :priority => 3
+      )
+
+      stub_request(:post , stub_path(@client , "/projects/#{@ticket.project_id}/tickets.json"))
+        .with(:body => @ticket.to_h)
+        .to_return(:status => 201,
+                   :body   => "{\"id\" : 1440}",
+                   :headers => {
+                     :content_type => "application/json"
+                   })
+    end
+
+    it 'POSTs the Ticket' do
+      @client.create_ticket(@ticket)
+      expect(a_request(:post , stub_path(@client , "/projects/#{@ticket.project_id}/tickets.json"))).to have_been_made
+    end
+
+    it 'returns an Unfuddled::Ticket' do
+      expect(@client.create_ticket(@ticket)).to be_an Unfuddled::Ticket
+    end
+
+    it 'returns an Unfuddled::Ticket with a client' do
+      ticket = @client.create_ticket(@ticket)
+      expect(ticket.client).to be_an Unfuddled::Client
+    end
+
+  end
+
 end
