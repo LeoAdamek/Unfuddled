@@ -6,6 +6,13 @@ module Unfuddled
     attr_accessor :client
     include Memoizer
 
+    # Constructor
+    #
+    # @param data [Hash] Data to store
+    def initialize(data = {})
+      super
+    end
+
     class << self
 
       # Construct object from Response

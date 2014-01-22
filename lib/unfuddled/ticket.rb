@@ -57,5 +57,19 @@ module Unfuddled
       @client.milestone(project_id , milestone_id)
     end
 
+
+    # Save a Ticket
+    def save
+      if id.nil? then
+        url = "/api/v1/projects/#{project_id}/tickets.json"
+        method = :post
+      else
+        url = "/api/v1/projects/#{project_id}/tickets/#{id}.json"
+        method = :put
+      end
+
+      @client.send(method , url , send(:to_h))
+    end
+
   end
 end

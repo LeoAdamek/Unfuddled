@@ -95,6 +95,14 @@ module Unfuddled
         request(:post , path, params)
       end
 
+      # Perform HTTP PUT Request
+      #
+      # @param path   [String] Request Path
+      # @param params [Hash]   Request Parameters
+      def put(path , params = {})
+        request(:put , path , params)
+      end
+
       # Get a connnection
       #
       # @return [Faraday::Connection]

@@ -140,4 +140,49 @@ describe Unfuddled::Ticket do
     end
   end
 
+  describe '#save' do
+    context 'when the ticket is new' do
+      before do
+        @ticket_data = {
+          :project_id => 1,
+          :milestone_id => 2,
+          :summary => "New Ticket",
+          :description => "New Ticket Description",
+          :description_format => "markdown"
+        }
+
+        stub_request(:post , stub_path(@client , "/projects/#{@ticket_data[:project_id]}/tickets.json"))
+          .with(:body => @ticket_data)
+          .to_return(:body => '{"status" : "success"}',
+                     :headers => {
+                       :content_type => 'application/json'
+                     })
+      end
+
+      pending 'POSTs the Ticket' do
+        ticket = Unfuddled::Ticket.new(@ticket_data)
+        ticket.save
+        expect(a_request(:post , stub_path(@client , "/projects/#{@ticket_data[:project_id]}/tickets.json"))).to have_been_made
+      end
+
+    end
+
+    context 'when the ticket already exists' do
+      before do
+
+        stub_request(:put , stub_path(@client, "/projects/#{@ticket.project_id}/tickets/#{@ticket.id}.json"))
+          .with(:body => @ticket.to_h)
+          .to_return(:body => '{"success" : true}',
+                     :headers => {
+                       :content_type => "application/html"
+                     })
+      end
+
+      it 'PUTs the Ticket' do
+        @ticket.save
+        expect(a_request(:put , stub_path(@client , "/projects/#{@ticket.project_id}/tickets/#{@ticket.id}.json"))).to have_been_made
+      end
+    end
+
+  end
 end
