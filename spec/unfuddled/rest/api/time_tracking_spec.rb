@@ -37,4 +37,26 @@ describe Unfuddled::REST::API::TimeTracking do
       
     end
   end
+
+  describe '#time_entries' do
+    before do
+      stub_request( :get , stub_path(@client , "/account/time_invested.json"))
+        .to_return(:body => fixture("time_invested.json"),
+                   :headers => {
+                     :content_type => "application/json"
+                   })
+    end
+    
+    it 'returns an Array of Unfuddled::TimeEntry' do
+      entries = @client.time_entries
+      expect(entries).to be_an Array
+      
+      entries.each do |entry|
+        expect(entry).to be_an Unfuddled::TimeEntry
+      end
+    end
+
+    
+  end
+    
 end
