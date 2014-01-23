@@ -20,17 +20,13 @@ module Unfuddled
         memoize(:tickets)
 
         def ticket(filters = {})
-          raise Unfuddled::Error.new("Must have filters for #ticket") if filters == {}
+          raise Unfuddled::Error.new("Cannot get a single ticket without an ID") unless filters.has_key?(:id)
 
-          if filters.keys.sort == [:id , :project_id] then
+          if filters.has_key?(:project_id) then
             url = "/api/v1/projects/#{filters[:project_id]}/tickets/#{filters[:id]}.json"
             ticket = Unfuddled::Ticket.from_response(send(:get, url)[:body] ,  self)
           else
-            if filters.has_key?(:id) then
-              ticket = tickets.select { |t| t.id == filters[:id] }.first
-            else
-              raise Unfuddled::Error.new("Cannot get a single ticket without an ID")
-            end
+            ticket = tickets.select { |t| t.id == filters[:id] }.first
           end
 
           ticket
