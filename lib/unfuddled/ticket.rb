@@ -12,9 +12,7 @@ module Unfuddled
     #
     # @return [Array[Unfuddled::TimeEntry]]
     def time_entries
-      url = "/api/v1/projects/#{project_id}/tickets/#{id}/time_entries.json"
-     
-      @client.process_list_response( @client.send(:get , url)[:body] , Unfuddled::TimeEntry )
+      get_ticket_property_list("time_entries" , Unfuddled::TimeEntry)
     end
 
     # Get the project for the ticket
@@ -82,9 +80,7 @@ module Unfuddled
     #
     # @return [Array(Unfuddled::Comment)]
     def comments
-      url = "/api/v1/projects/#{project_id}/tickets/#{id}/comments.json"
-      
-      @client.process_list_response( @client.send(:get , url)[:body] , Unfuddled::Comment )
+      get_ticket_property_list("comments" , Unfuddled::Comment)
     end
 
     # Add a new Comment
@@ -109,6 +105,12 @@ module Unfuddled
       method = :put
 
       @client.send(method , url , send(:to_h))
+    end
+
+    private
+    def get_ticket_property_list(p_name , klass)
+      url = "/api/v1/projects/#{project_id}/tickets/#{id}/#{p_name}.json"
+      @client.process_list_response( @client.send(:get , url)[:body] , klass)
     end
 
   end
