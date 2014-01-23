@@ -46,9 +46,9 @@ module Unfuddled
         # @return [Unfuddled::Ticket]
         # @param ticket [Unfuddled::Ticket] Ticket to create
         def create_ticket(ticket)
-          raise Unfuddled::Error.new("Ticket must have a Project ID") if ticket.project_id.nil?
-          raise Unfuddled::Error.new("Ticket must have a summary") if ticket.summary.nil?
-          raise Unfuddled::Error.new("Ticket must have a priority between 1 and 5") unless ticket.priority.is_a?(Integer) and ticket.priority.between?(1,5)
+          if ticket.priority.nil? or ticket.project_id.nil? or ticket.summary.nil?
+            raise Unfuddled::Error.new("Must have Priority (1..5), Project ID and Summary")
+          end
 
           begin
             url = "/api/v1/projects/#{ticket.project_id}/tickets.json"
