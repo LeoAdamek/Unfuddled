@@ -1,3 +1,4 @@
+
 require 'helper'
 
 describe Unfuddled::REST::API::Tickets do
@@ -133,6 +134,24 @@ describe Unfuddled::REST::API::Tickets do
       expect(ticket.client).to be_an Unfuddled::Client
     end
 
-  end
+    context 'when there is an error response from the API' do
+      before do
 
+        WebMock.reset!
+
+        stub_request(:post , stub_path(@client , "/projects/#{@ticket.project_id}/tickets.json"))
+          .with(:body => @ticket.to_h)
+          .to_return(:status => 403 ,
+                     :body => '["Not Allowed to do this."]',
+                     :headers => {
+                       :content_type => "application/json"
+                     })
+
+      end
+
+      it 'raises an Unfuddled::HTTPErrorResponse' do
+        expect { @client.create_ticket(@ticket) }.to raise_error (Unfuddled::HTTPErrorResponse)
+      end
+    end
+  end
 end

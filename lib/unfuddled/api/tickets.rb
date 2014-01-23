@@ -66,7 +66,7 @@ module Unfuddled
             
             ticket
           rescue Unfuddled::HTTPErrorResponse => error
-            error
+            raise error
           end
 
         end
