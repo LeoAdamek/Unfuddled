@@ -19,10 +19,12 @@ module Unfuddled
 
     # Get the project for the ticket
     #
+    # @memoized
     # @return [Unfuddled::Project]
     def project
       @client.project(:id => project_id)
     end
+    memoize(:project)
 
     # To String
     # @return [String]
@@ -34,21 +36,25 @@ module Unfuddled
     #
     # @return [Array(Unfuddled::CustomField)]
     def custom_fields
-      p = project
-
-      field_values = @client.account_details.custom_field_values.select { |fv| fv["project_id"] == p.id }
+      field_values = @client.account_details.custom_field_values
 
       fields = []
 
       3.times do |i|
         n = i+1
-        field_value = field_values.select { |fv| fv[:id] == send(:"field#{n}_value_id") }
-        fields << Unfuddled::CustomField.new(
-                                             :number => n,
-                                             :title  => p.send(:"ticket_field#{n}_title"),
-                                             :type   => p.send(:"ticket_field#{n}_disposition"),
-                                             :value  => field_value
-                                             )
+
+        if send(:"field#{n}_value_id").nil?
+          fields << nil
+        else
+
+          field_value = field_values.select { |fv| fv["id"] == send(:"field#{n}_value_id") }
+          fields << Unfuddled::CustomField.new(
+                                               :number => n,
+                                               :title  => project.send(:"ticket_field#{n}_title"),
+                                               :type   => project.send(:"ticket_field#{n}_disposition"),
+                                               :value  => field_value
+                                               )
+        end
       end
 
       fields

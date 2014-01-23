@@ -45,6 +45,30 @@ describe Unfuddled::REST::API::Tickets do
 
   end
 
+  describe '#ticket' do
+    context 'without any arguments' do
+      it 'raises an Unfuddled::Error' do
+        expect { @client.ticket }.to raise_error( Unfuddled::Error )
+      end
+    end
+    
+    context 'with a :project_id and :id' do
+      before do
+        stub_request(:get , stub_path(@client , "/projects/1/tickets/1024.json"))
+          .to_return(:body => "{}",
+                     :headers => {
+                       :content_type => "application/json"
+                     })
+      end
+      
+      it 'gets the ticket directly' do
+        @client.ticket( :project_id => 1 , :id => 1024 )
+        expect( a_request(:get , stub_path(@client , "/projects/1/tickets/1024.json"))).to have_been_made
+      end
+    end
+
+  end
+
 
   describe '#create_ticket' do
     before do

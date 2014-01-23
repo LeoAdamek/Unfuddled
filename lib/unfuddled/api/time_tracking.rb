@@ -17,11 +17,10 @@ module Unfuddled
         #
         # @return [Array(Unfuddled::TimeEntry)]
         def time_entries(options = {})
-          response = send(:get, "/api/v1/account/time_invested.json", options)
-          
-          entries = response[:body]["groups"].each { |g| g["time_entries"] }.flatten
+          entries = []
+          time_invested(options).groups.each { |g| entries << g["time_entries"] }
 
-          process_list_response( entries , Unfuddled::TimeEntry )
+          process_list_response( entries.flatten , Unfuddled::TimeEntry )
         end
         
       end
