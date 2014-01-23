@@ -67,6 +67,37 @@ describe Unfuddled::REST::API::Tickets do
       end
     end
 
+    context 'without :id' do
+      it 'raises an Unfuddled::Error' do
+        expect { @client.ticket(:summary => "test") }.to raise_error(Unfuddled::Error)
+      end
+    end
+
+    context 'with only :id' do
+
+      before do
+        stub_request(:get , stub_path(@client , "/ticket_reports/dynamic.json"))
+          .to_return(:body => fixture("tickets.json"),
+                     :headers => {
+                       :content_type => 'application/json'
+                     })
+      end
+
+      it 'gets all tickets' do
+        @client.ticket(:id => 1024)
+        expect(a_request(:get , stub_path(@client , "/ticket_reports/dynamic.json"))).to have_been_made
+      end
+
+      it 'returns an Unfuddled::Ticket' do
+        expect(@client.ticket(:id => 1024)).to be_an Unfuddled::Ticket
+      end
+
+      it 'returns the ticket with matching :id' do
+        expect(@client.ticket(:id => 1024).id).to eq 1024
+      end
+    end
+        
+
   end
 
 
